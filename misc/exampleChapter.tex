@@ -1,0 +1,138 @@
+\chapter{Latex-Beispiele}
+Hier ist eine kleine Sammlung mit Dingen, welche man gern mit Latex anstellt.\par
+Dieses Kapitel lässt sich durch eine Einstellung in \emph{settings.tex} verstecken.
+Du musst einfach die "`Variable"' \enquote{showExampleChapter} auf \emph{false} setzen.
+Das normale Komma in Latex, unterscheidet sich lediglich im Zeichenabstand
+vom Dezimalen Komma: 1{,}2 mm. \href{http://google.de}{Siehe Google.}
+Oder wie Goethe schon damals sagte: "`Hallo"'\cite[chapter, p.~215]{goethe2016wilhelm}.
+Bla bla bla. \parencite[see][p10]{lamport1994latex} Blup \acrlong{gcd} \acrshort{lcm}.
+
+\section{Grafiken einbinden}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=2]{uniLogo}
+\caption{Das Bild bei scale=2}
+\label{fig: LogoGross}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=1.5]{uniLogo}
+\caption{Das Bild bei scale=1.5}
+\label{fig: LogoKleiner}
+\end{figure}
+
+\newpage
+
+\section{Listen}
+
+\begin{enumerate}
+\item Früchtchen
+\begin{enumerate}
+\item Äpfel
+\item Birnen
+\end{enumerate}
+\item Orangen
+\item Bananen \ldots
+\end{enumerate}
+
+\href{https://en.wikibooks.org/wiki/LaTeX/List_Structures}{siehe Wikibooks}
+
+\section{Tabellen}
+
+\begin{tabular}{ l c r }
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+  7 & 8 & 9 \\
+\end{tabular}
+
+\begin{tabular}{ l | c || r }
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+  7 & 8 & 9 \\
+\end{tabular}
+
+%%
+% Zentrierte Tabelle
+%%
+\begin{center}
+  \begin{tabular}{ | l || c ||| r }
+    \hline
+    1 & 2 & 3 \\ \hline
+    4 & 5 & 6 \\ \hline \hline
+    7 & 8 & 9 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+%%
+% Tabelle mit Beschriftung
+%%
+\begin{table}[ht]
+\centering
+\begin{tabular}{l | l | l}
+A & B & C \\
+\hline
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{tabular}
+\caption{Tabelle mit Beschriftung}
+\label{tab:abc}
+\end{table}
+
+%%
+% Mehrere Tabellen nebeneinander
+%%
+\begin{table}[ht]
+    \begin{subtable}[ht]{0.45\textwidth}
+        \centering
+        \begin{tabular}{l | l | l}
+        Day & Max Temp & Min Temp \\
+        \hline \hline
+        Mon & 20 & 13\\
+        Tue & 22 & 14\\
+        Wed & 23 & 12\\
+        Thurs & 25 & 13\\
+        Fri & 18 & 7\\
+        Sat & 15 & 13\\
+        Sun & 20 & 13
+        \end{tabular}
+        \caption{First Week}
+        \label{tab:week1}
+    \end{subtable}
+    \hfill
+    \begin{subtable}[ht]{0.45\textwidth}
+        \centering
+        \begin{tabular}{l | l | l}
+        Day & Max Temp & Min Temp \\
+        \hline \hline
+        Mon & 17 & 11\\
+        Tue & 16 & 10\\
+        Wed & 14 & 8\\
+        Thurs & 12 & 5\\
+        Fri & 15 & 7\\
+        Sat & 16 & 12\\
+        Sun & 15 & 9
+        \end{tabular}
+        \caption{Second Week}
+        \label{tab:week2}
+    \end{subtable}
+    \caption{Max and min temps recorded in the first two weeks of July}
+    \label{tab:temps}
+\end{table}
+
+\href{https://en.wikibooks.org/wiki/LaTeX/Tables}{siehe Wikibooks}
+
+\section{Formeln}
+Eine Formel wie \( f(x)=x^2 \) kann innerhalb eines Textes stehen.
+Komplexere Formeln sollten aber alleine stehen:
+\[
+  \tan (\alpha) = \frac{a}{c}
+\]
+\[
+  \mathcal S=1=\sqrt{1}=\sqrt[3]{1}=1^{\frac{8}{4}}=\frac{2}{1}\cdot\frac{1}{2}
+  = \sum_{i=1}^{1} 1^i
+\]
+
+\href{https://en.wikibooks.org/wiki/LaTeX/Mathematics}{siehe Wikibooks}

@@ -1,0 +1,14 @@
+rm *.lot
+rm *.log
+rm *.glo
+rm *.lof
+rm *.glg
+rm *.toc
+rm *.blg
+rm *.aux
+rm *.bcf
+rm *.acn
+rm *.acr
+rm *.ist
+rm *.gls
+rm *.out

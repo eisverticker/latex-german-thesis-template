@@ -1,0 +1,4 @@
+makeglossaries index &&
+biber index &&
+pdflatex index.tex &&
+latex index.tex

@@ -1,0 +1,122 @@
+%%
+% Willkommen zum besten Latex-Template dieser Erde ;)
+% An dieser Datei sollte möglichst nichts verändert werden,
+% Alle nötigen Einstellungen befinden sich in settings.tex
+%%
+%%
+% To-Do und bekannte Fehler
+%%
+% - Umlaute in PDF-Metadaten werden nicht korrekt im PDF-Betrachter angezeigt
+% - titel fertigstellen
+% - eidesstattliche Erklärung
+% - Akronyme fehlen im Inhaltsverzeichnis
+% - Fancy funktioniert gerade nicht
+%%
+\documentclass[12pt,ngerman,a4paper]{book}
+%\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+
+% Latex programming constructs
+\usepackage{ifthen}% used for conditional statements, boolean etc.
+\usepackage{forloop}% used for dynamic amount of chapter files
+
+% Math packages
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+% images and captions
+\usepackage{graphicx}% images
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{fancyhdr}% footer and header
+
+\usepackage[acronym,toc]{glossaries}
+\usepackage{tocbibind}
+
+\input{ settings }
+
+% PDF-Metadata and links
+\usepackage[pdfauthor={\name},
+            pdftitle={\thesisTitle},
+            pdfsubject={\thesisType}]{hyperref}
+
+\makeglossaries
+\input{content/acronyms}
+
+\usepackage[style=alphabetic]{biblatex}% bibliographic package
+% Reference Files
+%\addbibresource{sources/articles.bib}
+%\addbibresource{sources/books.bib}
+%\addbibresource{sources/web.bib}
+\addbibresource{sources/misc.bib}
+
+\pagestyle{plain}
+
+
+
+%include header and footer if given in the settings
+\ifshowCustomHeaderAndFooter
+  \pagestyle{fancy}
+  \input{\getRunningElementPath{header}}
+  \input{\getRunningElementPath{footer}}
+\fi
+
+\graphicspath{ {images/} }
+
+\date{\submissionDate}
+
+\begin{document}
+  \frontmatter
+
+  \input{\getTitlePath{\titleType}}
+  \ifshowAbstract %You can hide the abstract via settings page
+    \input{\chapterPath abstract}
+  \fi
+  \ifshowTableOfContents
+    \tableofcontents
+  \fi
+  \ifshowListOfTables
+
+  \fi
+  \listoftables
+  \ifshowListOfFigures
+    \listoffigures
+  \fi
+  \ifshowListOfAcronyms
+    \printglossary
+  \fi
+
+  \mainmatter
+  %Kapitel/Chapters
+  %% (!) \include automatically adds page-breaks, change it to
+  %%      \input if you don't want to
+  \include{\chapterPath introduction}
+  \newcounter{ct}%
+  \forloop{ct}{2}{\value{ct} < \numberOfChapters}%
+  {%
+  	 \include{\getChapterPath{\arabic{ct}}}%
+  }%
+
+  %\input{content/chapter4}
+  %\input{content/chapter5}
+  %...
+  \include{\chapterPath conclusion}
+
+  \ifshowExampleChapter %You can hide the example chapter via settings page
+    \include{\miscPath exampleChapter}
+  \fi
+
+  \appendix
+  \include{\chapterPath appendix}
+
+  \backmatter
+  \printbibliography[heading=bibnumbered]
+  \ifshowStatutoryDeclaration
+    \newpage
+    \include{\chapterPath eid}
+  \fi
+
+\end{document}
