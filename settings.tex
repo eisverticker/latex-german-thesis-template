@@ -1,27 +1,39 @@
 %%
-% Declaration of Variables (don't change this!)
+% Table of Contents
+% 1. Declaration of Variables
+% 2. Developer Settings
+% 3. USER SETTINGS
+% 4. Macros
+% 5. Environments
+%%
+
+%%
+% 1. Declaration of Variables (don't change this!)
 %%
 \newboolean{isPrintMode}
 \newboolean{showExampleChapter}
 \newboolean{showAbstract}
 \newboolean{showCustomHeaderAndFooter}
+\newboolean{showPlainHeaderAndFooter}
+\newboolean{showDefaultHeaderAndFooter}%this is only a dummy item
 \newboolean{showTableOfContents}
 \newboolean{showListOfTables}
 \newboolean{showListOfAcronyms}
+\newboolean{showGlossary}
 \newboolean{showListOfFigures}
 \newboolean{showStatutoryDeclaration}
 
 
 %%
-% Developer Settings
+% 2. Developer Settings
 %%
 \newcommand{ \chapterPath }{content/}
 \newcommand{ \miscPath }{misc/}
-\newcommand{ \srcPath }{sources/}
+%\newcommand{ \srcPath }{sources/} %doesn't work at the moment
 \newcommand{ \titlePath }{titlepages/}
 
 %%
-% User Settings (customize it until it fits your needs!)
+% 3. User Settings (customize it until it fits your needs!)
 %%
 \newcommand{ \titleType }{default}
 
@@ -30,7 +42,7 @@
 \newcommand{ \thesisTitle }{Vor- und Nachteile von Wassereis im Kühlschrank in Deutschland}
 \newcommand{ \submissionDate }{1. September 2016}
 \newcommand{ \place }{Ilmenau}
-\newcommand{ \institution }{ Technische Universität Ilmenau }
+\newcommand{ \institution }{Technische Universität Ilmenau}
 \newcommand{ \department }{Informatik und Automatisierung}
 \newcommand{ \subject }{Softwarearchitekturen und Produktlinien}
 \newcommand{ \country }{Deutschland}
@@ -43,24 +55,30 @@
 % cleans up the document for printing e.g. hides examples
 \setboolean{isPrintMode}{false}
 
+% which parts of a book should be included? select them
 \setboolean{showExampleChapter}{true}
 \setboolean{showAbstract}{true}
 \setboolean{showTableOfContents}{true}
 \setboolean{showListOfTables}{true}
 \setboolean{showListOfAcronyms}{true}
+\setboolean{showGlossary}{true}
 \setboolean{showListOfFigures}{true}
 \setboolean{showStatutoryDeclaration}{true}
-\setboolean{showCustomHeaderAndFooter}{false}
+
+%% Only set one of 'em to true!
+\setboolean{showDefaultHeaderAndFooter}{true}
+\setboolean{showPlainHeaderAndFooter}{false}
+\setboolean{showCustomHeaderAndFooter}{false}%see directory >>Misc<<
 
 %%
-% Macros
+% 4. Macros
 %%
 \newcommand{ \getChapterPath }[1]{\chapterPath chapter#1}
 \newcommand{ \getRunningElementPath }[1]{\miscPath #1}
 \newcommand{ \getTitlePath }[1]{\titlePath #1}
 
 %%
-% Environments
+% 5. Environments
 %%
 \newcommand\abstractname{Abstract}  %%% here
 \makeatletter

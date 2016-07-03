@@ -32,9 +32,13 @@
 \usepackage{subcaption}
 
 \usepackage{fancyhdr}% footer and header
+\setlength{\headheight}{15pt}
 
 \usepackage[acronym,toc]{glossaries}
-\usepackage{tocbibind}
+\usepackage[nottoc]{tocbibind}%nottoc -> don't show toc in toc
+
+%optional improvements on objects
+\usepackage{ctable}% should improve spacing in tables
 
 \input{ settings }
 
@@ -45,6 +49,7 @@
 
 \makeglossaries
 \input{content/acronyms}
+\input{content/glossary}
 
 \usepackage[style=alphabetic]{biblatex}% bibliographic package
 % Reference Files
@@ -53,15 +58,16 @@
 %\addbibresource{sources/web.bib}
 \addbibresource{sources/misc.bib}
 
-\pagestyle{plain}
-
-
 
 %include header and footer if given in the settings
 \ifshowCustomHeaderAndFooter
   \pagestyle{fancy}
   \input{\getRunningElementPath{header}}
   \input{\getRunningElementPath{footer}}
+\else
+  \ifshowPlainHeaderAndFooter
+    \pagestyle{plain}
+  \fi
 \fi
 
 \graphicspath{ {images/} }
@@ -86,8 +92,14 @@
     \listoffigures
   \fi
   \ifshowListOfAcronyms
+    \glsaddall
+    \printglossary[type=\acronymtype] % prints just the list of acronyms
+  \fi
+  \ifshowGlossary
+    \glsaddall
     \printglossary
   \fi
+
 
   \mainmatter
   %Kapitel/Chapters
