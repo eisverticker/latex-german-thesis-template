@@ -1,0 +1,43 @@
+%Header with logo
+\fancypagestyle{ilmenauTitle}{
+  \fancyfoot{}
+  \fancyhead[L]{}
+  \fancyhead[R]{ \includegraphics[width=0.4\textwidth]{logoIlmenau} }
+  \renewcommand{\headrulewidth}{0pt}
+}
+\newgeometry{margin=1in, headheight=80pt, top=45mm}
+%Body of the document
+\begin{titlepage}
+  \thispagestyle{ilmenauTitle}
+    \vspace{2.5cm}
+    \begin{center}
+        \Huge
+        \textbf{\thesisTitle}
+        \vspace{1.5cm}
+
+        \Large
+        \textbf{\thesisType}
+        \vspace{1.0cm}
+
+        vorgelegt von\\
+        \vspace{0.5cm}
+        \textbf{\name}\\
+        Matr-Nr.: \studentnumber
+
+        \vspace{1.5cm}
+        Abgabedatum:\\ \submissionDate\\
+
+        \vfill
+        \Large
+        Verantwortlich:\\ \responsiblePerson\\
+        \vspace{0.5cm}
+        Betreuer:\\ \supervisor\\
+        \vspace{0.5cm}
+        Gutachter:\\ \reviewer\\
+        \vspace{1.5cm}
+        \department\\
+        \subject\\
+    \end{center}
+\end{titlepage}
+
+\restoregeometry

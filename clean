@@ -12,3 +12,8 @@ rm *.acr
 rm *.ist
 rm *.gls
 rm *.out
+rm *.alg
+rm *.bbl
+rm *.run.xml
+rm content/*.aux
+rm misc/*.aux

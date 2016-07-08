@@ -8,14 +8,18 @@
 %%
 % - Umlaute in PDF-Metadaten werden nicht korrekt im PDF-Betrachter angezeigt
 % - titel fertigstellen
-% - eidesstattliche Erklärung
-% - Akronyme fehlen im Inhaltsverzeichnis
-% - Fancy funktioniert gerade nicht
+% - 2-sprachiges Abstract
 %%
 \documentclass[12pt,ngerman,a4paper]{book}
-%\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
-\usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
+
+\usepackage{geometry}
+%\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+
+% encoding and nationalisation
+\usepackage[T1]{fontenc}%recommended encoding, comment out for backward compatibility
+%\usepackage{lmodern} alternative font
+\usepackage[utf8]{inputenc}
 \usepackage[autostyle=true,german=quotes]{csquotes}
 
 % Latex programming constructs
@@ -27,6 +31,7 @@
 \usepackage{amssymb}
 
 % images and captions
+\usepackage{tikz}% diagrams
 \usepackage{graphicx}% images
 \usepackage{caption}
 \usepackage{subcaption}
@@ -37,27 +42,39 @@
 \usepackage[acronym,toc]{glossaries}
 \usepackage[nottoc]{tocbibind}%nottoc -> don't show toc in toc
 
-%optional improvements on objects
+\usepackage{titlesec}%custom chapter formatting
+
+%notes
+\usepackage{todonotes}%allows to add fixme and todo
+
+%optional improvements on objects, comment out if problems arise
 \usepackage{ctable}% should improve spacing in tables
+%\usepackage{url}% prettier links are possible within non-pdf files
+%to use old font encoding comment out T1 above
 
 \input{ settings }
+
+%allow custom chapter formatting
+\ifcustomChapterStyle
+  \input{\miscPath chapterStyle}
+\fi
 
 % PDF-Metadata and links
 \usepackage[pdfauthor={\name},
             pdftitle={\thesisTitle},
             pdfsubject={\thesisType}]{hyperref}
 
+% glossary and acronym data
 \makeglossaries
-\input{content/acronyms}
-\input{content/glossary}
+\input{\frontmatterPath acronyms}
+\input{\frontmatterPath glossary}
 
 \usepackage[style=alphabetic]{biblatex}% bibliographic package
 % Reference Files
-%\addbibresource{sources/articles.bib}
-%\addbibresource{sources/books.bib}
-%\addbibresource{sources/web.bib}
-\addbibresource{sources/misc.bib}
-
+\addbibresource{bibliography/papers.bib}
+\addbibresource{bibliography/books.bib}
+\addbibresource{bibliography/web.bib}
+\addbibresource{bibliography/misc.bib}
 
 %include header and footer if given in the settings
 \ifshowCustomHeaderAndFooter
@@ -76,32 +93,43 @@
 
 \begin{document}
   \frontmatter
+  \pagenumbering{Roman}
+  \ifisPrintMode
+    \setboolean{isContentOnlyMode}{false}
+  \fi
+  \ifisContentOnlyMode
+  \else
+    \input{\getTitlePath{\titleType}}
+    \ifshowAbstract %You can hide the abstract via settings page
+      \input{\frontmatterPath abstract}
+    \fi
+    \ifshowTableOfContents
+      \tableofcontents
+    \fi
+    \ifshowListOfTables
 
-  \input{\getTitlePath{\titleType}}
-  \ifshowAbstract %You can hide the abstract via settings page
-    \input{\chapterPath abstract}
+    \fi
+    \listoftables
+    \ifshowListOfFigures
+      \listoffigures
+    \fi
+    \ifshowListOfAcronyms
+      \glsaddall
+      \printglossary[type=\acronymtype] % prints just the list of acronyms
+    \fi
+    \ifshowGlossary
+      \glsaddall
+      \printglossary
+    \fi
   \fi
-  \ifshowTableOfContents
-    \tableofcontents
-  \fi
-  \ifshowListOfTables
-
-  \fi
-  \listoftables
-  \ifshowListOfFigures
-    \listoffigures
-  \fi
-  \ifshowListOfAcronyms
-    \glsaddall
-    \printglossary[type=\acronymtype] % prints just the list of acronyms
-  \fi
-  \ifshowGlossary
-    \glsaddall
-    \printglossary
-  \fi
-
 
   \mainmatter
+  \ifisPrintMode
+  \else
+    \ifshowNotes
+      \input{\chapterPath notes}
+    \fi
+  \fi
   %Kapitel/Chapters
   %% (!) \include automatically adds page-breaks, change it to
   %%      \input if you don't want to
@@ -117,8 +145,11 @@
   %...
   \include{\chapterPath conclusion}
 
-  \ifshowExampleChapter %You can hide the example chapter via settings page
-    \include{\miscPath exampleChapter}
+  \ifisPrintMode
+  \else
+    \ifshowExampleChapter %You can hide the example chapter via settings page
+      \include{\miscPath exampleChapter}
+    \fi
   \fi
 
   \appendix
@@ -128,7 +159,21 @@
   \printbibliography[heading=bibnumbered]
   \ifshowStatutoryDeclaration
     \newpage
-    \include{\chapterPath eid}
+    \include{\statutoryDeclarationPath eid}
+  \fi
+
+  \ifisPrintMode
+  \else
+    \chapter*{Latex-Info}
+    \TODO{
+      TODOs: \arabic{todoCOUNT}
+    }
+    \TODO{
+      Tipps: \arabic{tipCOUNT}
+    }
+    \TODO{
+      Zu Behebende Fehler(FIXMEs): \arabic{fixmeCOUNT}
+    }
   \fi
 
 \end{document}

@@ -11,8 +11,11 @@
 % 1. Declaration of Variables (don't change this!)
 %%
 \newboolean{isPrintMode}
+\newboolean{isContentOnlyMode}
 \newboolean{showExampleChapter}
+\newboolean{showNotes}
 \newboolean{showAbstract}
+\newboolean{customChapterStyle}
 \newboolean{showCustomHeaderAndFooter}
 \newboolean{showPlainHeaderAndFooter}
 \newboolean{showDefaultHeaderAndFooter}%this is only a dummy item
@@ -22,12 +25,15 @@
 \newboolean{showGlossary}
 \newboolean{showListOfFigures}
 \newboolean{showStatutoryDeclaration}
+%\newboolean{showMultipleAbstracts}
 
 
 %%
 % 2. Developer Settings
 %%
 \newcommand{ \chapterPath }{content/}
+\newcommand{ \frontmatterPath }{\chapterPath}
+\newcommand{ \statutoryDeclarationPath }{\chapterPath}
 \newcommand{ \miscPath }{misc/}
 %\newcommand{ \srcPath }{sources/} %doesn't work at the moment
 \newcommand{ \titlePath }{titlepages/}
@@ -35,29 +41,40 @@
 %%
 % 3. User Settings (customize it until it fits your needs!)
 %%
-\newcommand{ \titleType }{default}
+\newcommand{ \titleType }{ilmenau}
 
 \newcommand{ \degree }{Bachelor}
 \newcommand{ \thesisType }{\degree arbeit}
 \newcommand{ \thesisTitle }{Vor- und Nachteile von Wassereis im Kühlschrank in Deutschland}
-\newcommand{ \submissionDate }{1. September 2016}
+\newcommand{ \submissionDate }{\today}
 \newcommand{ \place }{Ilmenau}
 \newcommand{ \institution }{Technische Universität Ilmenau}
-\newcommand{ \department }{Informatik und Automatisierung}
-\newcommand{ \subject }{Softwarearchitekturen und Produktlinien}
+\newcommand{ \department }{Fakultät für Informatik und Automatisierung}
+\newcommand{ \subject }{Fachgebiet Softwarearchitekturen und Produktlinien}
 \newcommand{ \country }{Deutschland}
 \newcommand{ \firstName }{Max}
 \newcommand{ \lastName }{Musterklaus}
 \newcommand{ \name }{\firstName\ \lastName}
+\newcommand{ \studentnumber }{99999}
+\newcommand{ \responsiblePerson }{Prof. Dr. Dipl-Inf. Mustermann}
+\newcommand{ \supervisor }{Mr. Supervisor}
+\newcommand{ \reviewer }{Ree Viewer}
+
+% images
+\newcommand{ \logoFileName }{logo}
 
 \newcommand{ \numberOfChapters }{4}
 
 % cleans up the document for printing e.g. hides examples
 \setboolean{isPrintMode}{false}
+  \setboolean{showExampleChapter}{true}%only appears if isPrintMode is set to false
+  \setboolean{showNotes}{true}%only appears if isPrintMode is set to false
+% hides all pages except the chapters and following
+\setboolean{isContentOnlyMode}{false}% is being ignored in printMode
 
 % which parts of a book should be included? select them
-\setboolean{showExampleChapter}{true}
 \setboolean{showAbstract}{true}
+%  \setboolean{showMultipleAbstracts}{true}
 \setboolean{showTableOfContents}{true}
 \setboolean{showListOfTables}{true}
 \setboolean{showListOfAcronyms}{true}
@@ -70,12 +87,39 @@
 \setboolean{showPlainHeaderAndFooter}{false}
 \setboolean{showCustomHeaderAndFooter}{false}%see directory >>Misc<<
 
+\setboolean{customChapterStyle}{false}%customize your chapter style in misc/chapterStyle
+
 %%
 % 4. Macros
 %%
 \newcommand{ \getChapterPath }[1]{\chapterPath chapter#1}
 \newcommand{ \getRunningElementPath }[1]{\miscPath #1}
 \newcommand{ \getTitlePath }[1]{\titlePath #1}
+
+%to-do macros TODO and FIXME and TIP
+\newcounter{todoCOUNT}
+\newcounter{fixmeCOUNT}
+\newcounter{tipCOUNT}
+\newcommand{\TODO}[1]{
+  \ifisPrintMode
+  \else
+    \vspace{0.5em}\todo[inline, color=orange]{#1}\stepcounter{todoCOUNT}
+  \fi
+}
+
+\newcommand{\FIXME}[1]{
+  \ifisPrintMode
+  \else
+    \todo[size=\small, color=red]{#1}\stepcounter{fixmeCOUNT}
+  \fi
+}
+
+\newcommand{\TIP}[1]{
+  \ifisPrintMode
+  \else
+    \todo[size=\small, color=yellow]{#1}\stepcounter{tipCOUNT}
+  \fi
+}
 
 %%
 % 5. Environments
