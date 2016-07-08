@@ -25,6 +25,7 @@
 \newboolean{showGlossary}
 \newboolean{showListOfFigures}
 \newboolean{showStatutoryDeclaration}
+\newboolean{addEmptyPageToEnd}
 %\newboolean{showMultipleAbstracts}
 
 
@@ -66,7 +67,7 @@
 \newcommand{ \numberOfChapters }{4}
 
 % cleans up the document for printing e.g. hides examples
-\setboolean{isPrintMode}{false}
+\setboolean{isPrintMode}{true}
   \setboolean{showExampleChapter}{true}%only appears if isPrintMode is set to false
   \setboolean{showNotes}{true}%only appears if isPrintMode is set to false
 % hides all pages except the chapters and following
@@ -81,6 +82,7 @@
 \setboolean{showGlossary}{true}
 \setboolean{showListOfFigures}{true}
 \setboolean{showStatutoryDeclaration}{true}
+\setboolean{addEmptyPageToEnd}{true}
 
 %% Only set one of 'em to true!
 \setboolean{showDefaultHeaderAndFooter}{true}
