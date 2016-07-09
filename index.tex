@@ -69,7 +69,7 @@
 \input{\frontmatterPath acronyms}
 \input{\frontmatterPath glossary}
 
-\usepackage[style=alphabetic]{biblatex}% bibliographic package
+\usepackage[style=\citeStyle]{biblatex}% bibliographic package
 % Reference Files
 \addbibresource{bibliography/papers.bib}
 \addbibresource{bibliography/books.bib}
@@ -161,7 +161,7 @@
     \newpage
     \include{\statutoryDeclarationPath eid}
   \fi
-  
+
   \ifaddEmptyPageToEnd
   \newpage
   \thispagestyle{empty}
