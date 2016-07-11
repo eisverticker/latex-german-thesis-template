@@ -10,7 +10,7 @@
 % - titel fertigstellen
 % - 2-sprachiges Abstract
 %%
-\documentclass[12pt,ngerman,a4paper]{book}
+\documentclass[12pt,ngerman,a4paper,twoside]{book}
 \usepackage[ngerman]{babel}
 
 \usepackage{geometry}
@@ -107,9 +107,8 @@
       \tableofcontents
     \fi
     \ifshowListOfTables
-
+      \listoftables
     \fi
-    \listoftables
     \ifshowListOfFigures
       \listoffigures
     \fi
