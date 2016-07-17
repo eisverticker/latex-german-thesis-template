@@ -113,13 +113,12 @@
       \listoffigures
     \fi
     \ifshowListOfAcronyms
-      \glsaddall
-      \printglossary[type=\acronymtype] % prints just the list of acronyms
+      \printacronyms % prints just the list of acronyms
     \fi
     \ifshowGlossary
-      \glsaddall
       \printglossary
     \fi
+    %\glsaddall %uncomment to print all glossary and acronym entries
   \fi
 
   \mainmatter
